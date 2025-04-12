@@ -10,39 +10,26 @@ export interface Figure {
 export class Triangle implements Figure {
   shape: Shape = 'triangle';
 
-  color: Color;
-
-  private a: number;
-
-  private b: number;
-
-  private c: number;
-
-  constructor(color: Color, a: number, b: number, c: number) {
+  constructor(
+    public color: Color,
+    private a: number,
+    private b: number,
+    private c: number,
+  ) {
     if (a <= 0 || b <= 0 || c <= 0) {
       throw new Error('Triangle sides must be positive numbers');
     }
 
-    const sides: number[] = [a, b, c].sort(
-      (x: number, y: number): number => x - y,
-    );
+    const sides = [a, b, c].sort((x, y) => x - y);
 
     if (sides[2] >= sides[0] + sides[1]) {
       throw new Error(`Sides ${a}, ${b} and ${c} can't form a triangle`);
     }
-
-    this.color = color;
-    this.a = a;
-    this.b = b;
-    this.c = c;
   }
 
   getArea(): number {
-    const s: number = (this.a + this.b + this.c) / 2;
-
-    const area: number = Math.sqrt(
-      s * (s - this.a) * (s - this.b) * (s - this.c),
-    );
+    const s = (this.a + this.b + this.c) / 2;
+    const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
 
     return Math.floor(area * 100) / 100;
   }
@@ -51,21 +38,17 @@ export class Triangle implements Figure {
 export class Circle implements Figure {
   shape: Shape = 'circle';
 
-  color: Color;
-
-  private radius: number;
-
-  constructor(color: Color, radius: number) {
+  constructor(
+    public color: Color,
+    private radius: number,
+  ) {
     if (radius <= 0) {
       throw new Error('Radius must be positive');
     }
-
-    this.color = color;
-    this.radius = radius;
   }
 
   getArea(): number {
-    const area: number = Math.PI * this.radius ** 2;
+    const area = Math.PI * this.radius ** 2;
 
     return Math.floor(area * 100) / 100;
   }
@@ -74,24 +57,18 @@ export class Circle implements Figure {
 export class Rectangle implements Figure {
   shape: Shape = 'rectangle';
 
-  color: Color;
-
-  private width: number;
-
-  private height: number;
-
-  constructor(color: Color, width: number, height: number) {
+  constructor(
+    public color: Color,
+    private width: number,
+    private height: number,
+  ) {
     if (width <= 0 || height <= 0) {
       throw new Error('Width and height must be positive');
     }
-
-    this.color = color;
-    this.width = width;
-    this.height = height;
   }
 
   getArea(): number {
-    const area: number = this.width * this.height;
+    const area = this.width * this.height;
 
     return Math.floor(area * 100) / 100;
   }
